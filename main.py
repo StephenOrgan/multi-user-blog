@@ -6,6 +6,7 @@ from string import letters
 import webapp2
 import jinja2
 import hmac
+import random 
 
 from google.appengine.ext import db
 
@@ -14,6 +15,73 @@ SECRET = 'imsosecret'
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
+def hash_str(val):
+    return hmac.new(SECRET, val).hexdigest()
+
+def make_secure_val(val):
+    return "%s=%s" % (val, hash_str(val))
+
+def check_secure_val(secure_val):
+    val = secure_val.split('=')[0]
+    if secure_val == make_secure_val(val):
+        return val
+
+def set_secure_cookie(self, name, val):
+        cookie_val = str(make_secure_val(val))
+        self.response.headers.add_header(
+            'Set-Cookie', '%s=%s; Path=/' % (name, cookie_val))
+
+def read_secure_cookie(self, name):
+        cookie_val = self.request.cookies.get(name)
+        name = check_secure_val(cookie_val)
+        return cookie_val and name
+
+class BlogHandler(webapp2.RequestHandler):
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
+
+    def render_str(self, template, **params):
+        params['user'] = self.user
+        t = jinja_env.get_template(template)
+        return t.render(params)
+
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
+
+    # this makes hmac hash of name and sets it in the header as name=hash
+    def set_secure_cookie(self, name, val):
+        cookie_val = make_secure_val(val)
+        self.response.headers.add_header(
+            'Set-Cookie', '%s=%s; Path=/' % ('name', cookie_val))
+        
+    #if cookies and that cookie passes check_secure_val then return cookie_val
+    def read_secure_cookie(self, name):
+        cookie_val = self.request.cookies.get(name)
+        return cookie_val and check_secure_val(cookie_val)
+
+    # check the usercookie.  if exists store the user object in self.user
+    def initialize(self, *a, **kw):
+        webapp2.RequestHandler.initialize(self, *a, **kw)
+        uid = self.read_secure_cookie('user_id')
+        self.user = uid and User.by_id(int(uid))
+
+def make_salt():
+    return ''.join(random.choice(letters) for x in xrange(5))
+
+def make_pw_hash(name, pw, salt=None):
+    if not salt:
+        salt = make_salt()
+    h = hashlib.sha256(name + pw + salt).hexdigest()
+    return '%s=%s' % (salt, h)
+
+def valid_pw(name, pw, h):
+    ###Your code here
+    salt = h.split('=')[0]
+    return h == make_pw_hash(name, pw, salt)
+
+
+def users_key(group = 'default'):
+    return db.Key.from_path('users', group)
 
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
@@ -29,32 +97,7 @@ def valid_email(email):
     return not email or EMAIL_RE.match(email)
 
 #BlogHandler
-class BlogHandler(webapp2.RequestHandler):
-    def write(self, *a, **kw):
-        self.response.out.write(*a, **kw)
 
-    def render_str(self, template, **params):
-        return render_str(template, **params)
-
-    def render(self, template, **kw):
-        self.write(self.render_str(template, **kw))
-
-    # this makes hmac hash of name and sets it in the header as name=hash
-    def set_secure_cookie(self, name, val):
-        cookie_val = make_secure_val(val)
-        self.response.headers.add_header(
-            'Set-Cookie', '%s=%s; Path=/' % (name, cookie_val))
-        
-    #if cookies and that cookie passes check_secure_val then return cookie_val
-    def read_secure_cookie(self, name):
-        cookie_val = self.request.cookies.get(name)
-        return cookie_val and check_secure_val(cookie_val)
-
-    # check the usercookie.  if exists store the user object in self.user
-    def initialize(self, *a, **kw):
-        webapp2.RequestHandler.initialize(self, *a, **kw)
-        uid = self.read_secure_cookie('user_id')
-        self.user = uid and User.by_id(int(uid))
 
 class Signup(BlogHandler):
 
@@ -98,14 +141,20 @@ class Signup(BlogHandler):
 class Register(Signup):
     def done(self):
         #make sure user doesn't already exist
-        u = User.by_name(self.username)
+        username = self.request.get('username')
+        password = self.request.get('password')
+        verify = self.request.get('verify')
+        email = self.request.get('email')
+
+
+        u = User.by_name(username)
         if u:
             msg = "That user already exists"
             self.render('signup-form.html', error_username = msg)
         else:
-            u = User.register(self.username, self.password, self.email)
+            u = User.register(username, password, email)
             u.put()
-            set_secure_cookie(self.username)
+            set_secure_cookie(self, 'name', username)
             self.redirect('/welcome')
 
 
@@ -121,34 +170,6 @@ def render_post(response, post):
     response.out.write(post.content)
 
 
-def hash_str(s):
-    return hmac.new(SECRET, s).hexdigest()
-
-def make_secure_val(s):
-    return "%s=%s" % (s, hash_str(s))
-
-def check_secure_val(h):
-    val = h.split('=')[0]
-    if h == make_secure_val(val):
-        return val
-
-def make_salt():
-    return ''.join(random.choice(string.letters) for x in xrange(5))
-
-def make_pw_hash(name, pw, salt=None):
-    if not salt:
-        salt = make_salt()
-    h = hashlib.sha256(name + pw + salt).hexdigest()
-    return '%s|%s' % (salt, h)
-
-def valid_pw(name, pw, h):
-    ###Your code here
-    salt = h.split('|')[0]
-    return h == make_pw_hash(name, pw, salt)
-
-
-def users_key(group = 'default'):
-    return db.Key.from_path('users', group)
 
 
 class User(db.Model):
@@ -271,8 +292,9 @@ class Rot13(BlogHandler):
 
 class Unit3Welcome(BlogHandler):
     def get(self):
+        self.user = read_secure_cookie(self, 'name')
         if self.user:
-            self.render('welcome.html', username = self.user.name)
+            self.render('welcome.html', username = self.user)
         else:
             self.redirect('/signup')
 
