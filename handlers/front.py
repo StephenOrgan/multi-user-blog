@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 from handlers.bloghandler import BlogHandler
+from validate import *
 
 
 class BlogFront(BlogHandler):

@@ -38,6 +38,10 @@ def render_str(template, **params):
     t = jinja_env.get_template(template)
     return t.render(params)
 
+def render_post(response, post):
+    response.out.write('<b>' + post.subject + '</b><br>')
+    response.out.write(post.content)
+
 # Authentication
 SECRET = 'imsosecret'
 
@@ -54,11 +58,9 @@ def valid_pw(name, pw, h):
     salt = h.split(',')[0]
     return h == make_pw_hash(name, pw, salt)
 
-def hash_str(val):
-    return hmac.new(SECRET, val).hexdigest()
 
 def make_secure_val(val):
-    return "%s|%s" % (val, hash_str(val))
+    return "%s|%s" % (val, hmac.new(SECRET, val).hexdigest())
 
 def check_secure_val(secure_val):
     if secure_val:

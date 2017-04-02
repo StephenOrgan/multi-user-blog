@@ -14,7 +14,7 @@ class Signup(BlogHandler):
         else:
             u = User.register(self.username, self.password, self.email)
             u.put()
-            self.set_secure_cookie('name', self.username)
+            self.login(u)
             self.redirect('/welcome')
 
     def get(self):

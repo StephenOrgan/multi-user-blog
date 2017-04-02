@@ -15,9 +15,8 @@ class Rot13(BlogHandler):
 
 class Unit3Welcome(BlogHandler):
     def get(self):
-        self.user = self.read_secure_cookie('name')
         if self.user:
-            self.render('welcome.html', username = self.user)
+            self.render('welcome.html', username = self.user.name)
         else:
             self.redirect('/signup')
 
