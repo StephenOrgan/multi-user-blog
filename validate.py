@@ -13,8 +13,8 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
 
 # Model Keys
-def users_key(group = 'default'):
-    return db.Key.from_path('users', group)
+def users_key(segment = 'default'):
+    return db.Key.from_path('users', segment)
 
 def blog_key(name = 'default'):
     return db.Key.from_path('blogs', name)
@@ -57,7 +57,6 @@ def make_salt():
 def valid_pw(name, pw, h):
     salt = h.split(',')[0]
     return h == make_pw_hash(name, pw, salt)
-
 
 def make_secure_val(val):
     return "%s|%s" % (val, hmac.new(SECRET, val).hexdigest())
