@@ -2,21 +2,18 @@
 
 {% block content %}
   
-{{post.render(None) | safe}}
+	{{post.render(None) | safe}}
 
 
-{% if user and user.key().id() == post.user_id %}
-	<a href="/{{post.key().id()}}/deletepost/{{post.user_id}}">
-		<div class="post__delete">
-			Delete Post
-		</div>
-	</a>
+	{% if user and user.key().id() == post.user_id %}
+		<br>
+		<a href="/{{post.key().id()}}/deletepost/{{post.user_id}}">
+			<div class="post__delete">Delete Post</div>
+		</a>
 		<a href="/{{post.key().id()}}/editpost">
-			<div class="post__edit">
-				Edit Post
-			</div>
+			<div class="post__edit">Edit Post</div>
 		</a>
 
-{% endif %}
+	{% endif %}
 
 {% endblock %}
