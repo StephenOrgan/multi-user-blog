@@ -3,18 +3,47 @@
 <head>
   <link type="text/css" rel="stylesheet" href="/static/main.css" />
 
-  <title>CS 253 Blog</title>
+  <title>Udacity MultiUser Blog</title>
 </head>
 
 <body>
-  <a href="/blog" class="main-title">
-    CS 253 Blog
-  </a>
 
-  <div id="content">
-  {% block content %}
-  {% endblock %}
-  </div>
+  <div class="wrapper">
+		<nav class="navigation">
+			<div class="container">
+				<a href="/" class="navigation__title">
+					<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
+					{% if user %}
+						<h1 class="title__text">Welcome, {{user.name}}!</h1>
+					{% else %}
+						<h1 class="title__text">Udacity Multi-Blog</h1>
+					{% endif %}
+				</a>
+				<ul class="navigation__list">
+					{% if user %}
+						<li class="list__item">
+							<a href="/newpost" class="list__item__link">New Post</a>
+						</li>
+						<li class="list__item">
+							<a href="/logout" class="list__item__link">Log out</a>
+						</li>
+					{% else %}
+						<li class="list__item">
+							<a href="/signup" class="list__item__link">Sign up</a>
+						</li>
+						<li class="list__item">
+							<a href="/login" class="list__item__link">Sign in</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+
+	<div id="content">
+		{% block content %}
+		{{error}}
+		{% endblock %}
+	</div>
+
 </body>
 
 </html>

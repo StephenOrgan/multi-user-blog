@@ -6,7 +6,7 @@ class Post(db.Model):
     content = db.TextProperty(required = True)
     created_at = db.DateTimeProperty(auto_now_add = True)
     updated_at = db.DateTimeProperty(auto_now = True)
-    user_id = db.IntegerProperty(required = False)
+    user_id = db.IntegerProperty(required = True)
 
     #this method replaces end lines with <br>.  It's called from permalink.html {{post.render() | safe}} 
     # which is then rendered to post.html and put into the base template

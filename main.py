@@ -47,7 +47,7 @@ app = webapp2.WSGIApplication([
 								('/([0-9]+)', Post),
 								('/newpost', NewPost),
 								('/([0-9]+)/editpost', EditPost),
-								('/([0-9]+)/([0-9]+)/deletepost/([0-9]+)', DeletePost),
+								('/([0-9]+)/deletepost/([0-9]+)', DeletePost),
 								('/([0-9]+)/([0-9]+)/editcomment/([0-9]+)', EditComment),
 								('/([0-9]+)/([0-9]+)/deletecomment/([0-9]+)', DeleteComment),
                                ],
