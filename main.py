@@ -33,8 +33,6 @@ from handlers.editpost import EditPost
 from handlers.like import LikeHandler
 from handlers.like import UnlikeHandler
 
-
-
 ##### blog stuff
 
 # this returns the key from the blog post.  The name allows us to have multiple blogs where default is the main schema?
