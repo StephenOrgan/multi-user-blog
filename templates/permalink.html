@@ -26,7 +26,7 @@
 
 	{% if user %}
 
-		{% if user.key().id() == likes.user_id and post.key().id() == likes.post_id %}
+		{% if liked %}
 			<a href="/{{post.key().id()}}/unlike"> 
 				<i class="fa fa-heart" aria-hidden="true"></i>
 			</a>

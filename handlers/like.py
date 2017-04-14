@@ -43,14 +43,14 @@ class UnlikeHandler(BlogHandler):
         post = db.get(postkey)
 
         if self.user and self.user.key().id() == post.user_id:
-            self.write("You cannot dislike your own post")
+            self.write("You cannot unlike your own post")
         elif not self.user:
             self.redirect('/login')
         else:
             user_id = self.user.key().id()
             post_id = post.key().id()
 
-            l = Like.all().filter('user_id =', user_id).filter('post_id =', post_id).get()
+            l = LikeModel.all().filter('user_id =', user_id).filter('post_id =', post_id).get()
 
             if l:
                 l.delete()
