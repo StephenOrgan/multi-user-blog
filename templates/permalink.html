@@ -40,6 +40,16 @@
 	{% endif %}
 
 {{liked}}
+
+{% for c in comments %}
+
+{{ c.content }}
+
+{% endfor %}
+
+
+
+
 	<div class="comments">
 		{% for c in comments %}
 			<div class="meta__comment">

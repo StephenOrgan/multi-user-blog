@@ -20,9 +20,9 @@ class EditComment(BlogHandler):
 	def post(self, post_id, post_user_id, comment_id):
 		if self.user and self.user.key().id() == int(post_user_id):
 			formcontent = self.request.get('content')
-			postKey = db.Key.from_path('Post', int(post_id), parent=blog_key())
-			commentkey = db.Key.from_path('Comment', int(comment_id), parent=postKey)
-			comment = db.get(key)
+			postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
+			commentkey = db.Key.from_path('Comment', int(comment_id), parent=postkey)
+			comment = db.get(postkey)
 			comment.content = formcontent
 			comment.put()
 
