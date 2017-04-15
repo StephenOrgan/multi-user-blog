@@ -22,8 +22,6 @@
 		</a>
 	{% endif %}
 
-	<!-- if user.key().id() == likes.user_id and post.key().id() == likes.post_id -->
-
 	{% if user %}
 
 		{% if liked %}
@@ -31,7 +29,7 @@
 				<i class="fa fa-heart" aria-hidden="true"></i>
 			</a>
 
-			{% else %}
+		{% else %}
 			<a href="/{{post.key().id()}}/like">
 				<i class="fa fa-heart-o" aria-hidden="true"></i>
 			</a>
@@ -52,27 +50,23 @@
 
 	<div class="comments">
 		{% for c in comments %}
-			<div class="meta__comment">
-				<div class="meta__comment__author">{{c.user_name}}</div>
-				<div class="meta__comment__date">{{c.created.strftime("%b %d, %Y")}}</div>
-				<p class="comment__content">
-					{{ c.content }}
-				</p>
-			    <div>
+		
+		{{c.created.strftime("%b %d, %Y")}}
+		
+		{{ c.content }}
+				
 					{% if user and user.key().id() == c.user_id %}
 						<a href="/{{post.key().id()}}/{{c.user_id}}/deletecomment/{{ c.key().id() }}">
-						<div class="comment__delete">
-							<img src="/static/images/rubbish-bin.svg" alt="" class="delete__icon">
+						<div class="comment_delete">
+							<i class="fa fa-trash-o" aria-hidden="true"></i>
 						</div>
 						</a>
 						<a href="/{{post.key().id()}}/{{c.user_id}}/editcomment/{{ c.key().id() }}">
-							<div class="comment__edit">
-								<img src="/static/images/edit.svg" alt="" class="edit__icon">
+							<div class="comment_edit">
+								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</div>
 						</a>
 					{% endif %}
-				</div>
-			</div>
 		{% endfor %}
 	</div>
 

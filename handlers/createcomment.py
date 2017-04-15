@@ -17,8 +17,8 @@ class CreateComment(BlogHandler):
 
         content = self.request.get('content')
         user_name = self.user.name
-        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        c = Comment(parent=key, user_id=int(user_id), content=content, post_id=int(post_id))
+        postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        c = Comment(parent=postkey, user_id=int(user_id), content=content, post_id=int(post_id))
         
         c.put()
 
