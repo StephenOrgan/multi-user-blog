@@ -6,10 +6,10 @@ class EditComment(BlogHandler):
 	def get(self, post_id, post_user_id, comment_id):
 		if self.user and self.user.key().id() == int(post_user_id):
 			postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
-			commentkey = db.Key.from_path('Comment', int(comment_id), parent=postKey)
-			comment = db.get(postkey)
+			commentkey = db.Key.from_path('Comment', int(comment_id), parent=postkey)
+			comment = db.get(commentkey)
 
-			self.render("editcomment.html", content=comment.content)
+			self.render("editcomment.html", content=comment.content, post_id = post_id)
 
 		elif not self.user:
 			self.redirect("/login")
@@ -22,7 +22,7 @@ class EditComment(BlogHandler):
 			formcontent = self.request.get('content')
 			postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
 			commentkey = db.Key.from_path('Comment', int(comment_id), parent=postkey)
-			comment = db.get(postkey)
+			comment = db.get(commentkey)
 			comment.content = formcontent
 			comment.put()
 

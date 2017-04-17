@@ -2,7 +2,7 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
 
-    width: 800px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 10px;
     color: #333;
@@ -21,6 +21,8 @@ h2 {
 label {
   display: block;
   font-size: 20px;
+  width: 30rem;
+  padding-top: 1rem;
 }
 
 label + label {
@@ -28,6 +30,13 @@ label + label {
 }
 
 input[type=text] {
+    width: 500px;
+    font-size: 20px;
+    padding: 2px;
+    font-family: monospace;
+}
+
+input[type=password] {
     width: 500px;
     font-size: 20px;
     padding: 2px;
@@ -42,8 +51,93 @@ textarea {
 }
 
 input[type=submit] {
-  font-size: 24px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
+
+button.button.form-cancel{
+    background-color: #b7bdb8; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/* Base Template */
+
+.wrapper .container {
+    max-width: 100%;
+}
+
+.navigation {
+    background: #f4f5f6;
+    border-bottom: .1rem solid #d1d1d1;
+    display: block;
+    height: 5.2rem;
+    width: 100%;
+}
+
+.navigation-title {
+    color: #606c76;
+    display: inline;
+    line-height: 5.2rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.navigation-title .title-image {
+    height: 2.0rem;
+    position: relative;
+    top: .3rem;
+}
+
+.navigation-title .title-text {
+    display: inline;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    color: #0d2f80;
+}
+
+.navigation-list {
+    float: right;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.navigation-list .item-list {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 2.5rem;
+    position: relative;
+}
+
+.navigation-list .item-list-link {
+    line-height: 5.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    color: #0d2f80;
+    padding-right:1rem;
+}
+
+.content {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+}
+
+/* Main Page */
 
 .main-title {
     display: block;
@@ -55,29 +149,175 @@ input[type=submit] {
     text-decoration: none;
 }
 
+
+/* Post Page */
+.post-container-details{
+    display:flex;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.post-options-container{
+    display:flex;
+    font-size: 1.2rem;
+}
+
+.post-options{
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+
 .post + .post {
-    margin-top: 15px;
+    margin-top: 1rem;
 }
 
 .post-heading {
     position: relative;
-    border-bottom: 3px solid #666;
+    border-bottom: 0.2rem solid #666;
 }
 
 .post-title {
-    font-size: 24px;
+    padding-top: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .post-date {
-    position: absolute;
     right: 0px;
     bottom: 0px;
     color: #999;
+    padding-left: 0.3rem;
+}
 
+.post-author {
+    right: 0px;
+    bottom: 0px;
+    color: #999;
 }
 
 .post-content {
-    margin-top: 5px;
+    padding-top: 1.5rem;
+    padding-bottom: 8.0rem;
+    font-size: 1.5rem;
+    border-bottom: 0.2rem solid #f3f3f3;
 }
 
+
+/* New post page */
+
+.newpost {
+
+}
+
+.newpost-form {
+
+}
+
+.newpost .form-input {
+    font-size: 4rem;
+    font-weight: 700;
+    border: none;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.newpost .form-textarea {
+    min-height: 50rem;
+    border: none;
+    padding-left: 0;
+    font-size: 2.1rem;
+}
+
+.newpost .form-input:focus,
+.newpost .form-textarea:focus {
+    border: none;
+}
+
+.newpost .form-submit {
+
+}
+
+.newpost .form-message {
+    font-weight: 300;
+    margin-left: 1rem;
+}
+
+
+/* Comments */
+
+.comments {
+    margin-top: 4rem;
+}
+
+.comment {
+    margin-top: 0.5rem;
+    padding: 1.0rem;
+    background-color: #efecec;
+}
+
+.comment-container {
+    margin-top: 2.0rem;
+    margin-left: 2.0rem;
+}
+
+.comment-details {
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+.comment-author {
+    width: 3.6rem;
+    height: 3.6rem;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+.comment .author-options {
+    vertical-align: middle;
+    padding-left: 0.5rem;
+    font-size: 1.8rem;
+    display: flex;
+}
+
+.comment .comment-author {
+    font-weight: 700;
+    letter-spacing: .1rem;
+    padding-right: 2rem;
+    text-transform: uppercase;
+}
+
+.comment .comment-date {
+    padding-left: 1rem;
+    color: #999;
+}
+
+.comment-content {
+    font-size: 1.0rem;
+    padding-left: 2.0rem;
+}
+
+.comment-delete {
+    display: inline-block;
+    float: right;
+}
+
+.comment .icon {
+    width: 2.0rem;
+    height: 2.0rem;
+    vertical-align: middle;
+}
+
+
+
+.author-options a:visited{
+        color:blue;
+}
+
+.comment__edit {
+    display: inline-block;
+    margin-left: 1rem;
+    float: right;
+}

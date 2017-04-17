@@ -16,7 +16,7 @@ class Post(db.Model):
         user = db.get(userkey)
 
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self, current_user_id = current_user_id, username = user.name)
+        return render_str("post.html", p = self, current_user_id = current_user_id, username = user.name, user_id = self.user_id)
 
     @classmethod
     def by_id(cls, uid):

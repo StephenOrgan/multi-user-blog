@@ -1,31 +1,40 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
+
 <html>
-	<head>
-		<title>Signup</title>
-	</head>
+<head>
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+  <link type="text/css" rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" />
+
+  <title>Sign Up</title>
+</head>
 <body>
 <h2>SignUp</h2>
 <form method="post">
 	<label> Username:
 		<input type="text" name="username" value="{{username}}"></input>
 	</label>
+	<div class="error">
 	{{error_username}}
-	<br>
+	</div>
 	<label> Email:
 		<input type="text" name="email" value="{{email}}"></input>
 	</label>
+	<div class="error">
 	{{error_email}}
-	<br>
+	</div>
 	<label> Password:
 		<input type="password" name="password" value=""></input>
 	</label>
-	{{error_password}}
-	<br>
+	<div class="error">
+	 {{error_password}}
+	</div>
 	<label> Verify Password:
 		<input type="password" name="verify" value=""></input>
 	</label>
+	<div class="error">
 	{{error_verify}}
-	<br>
+	</div>
 	<input type="submit">
 </form>
 </body>

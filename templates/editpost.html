@@ -5,13 +5,14 @@
     <div class="editpost">
         <div class="editpost__form">
             <form method="post" autocomplete="off">
-                <input autofocus class="form__input" placeholder="Title" type="text" name="subject" value="{{subject}}">
-                <textarea class="form__textarea" placeholder="Tell your story..." type="text" name="content">{{content}}</textarea>
+                <input autofocus class="form-input" placeholder="Title" type="text" name="subject" value="{{subject}}">
+                <textarea class="form-textarea" type="text" name="content">{{content}}</textarea>
+                <br>
                 <a href="/{{post_id}}">
-                    <button class="button-outline">back</button>
+                    <button class="button form-cancel">back</button>
                 </a>
-                <input class="button-outline form__submit" type="submit" value="save">
-                <span class="form__message">{{error}}</span>
+                <input class="button form-submit" type="submit" value="save">
+                <span class="form-message">{{error}}</span>
             </form>
         </div>
     </div>

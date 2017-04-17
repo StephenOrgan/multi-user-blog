@@ -12,28 +12,28 @@
   <div class="wrapper">
 		<nav class="navigation">
 			<div class="container">
-				<a href="/" class="navigation__title">
+				<a href="/" class="navigation-title">
 					<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
 					{% if user %}
-						<h1 class="title__text">Welcome, {{user.name}}!</h1>
+						<h1 class="title-text">Welcome, {{user.name}}!</h1>
 					{% else %}
-						<h1 class="title__text">Udacity Multi-Blog</h1>
+						<h1 class="title-text">Udacity Multi-Blog</h1>
 					{% endif %}
 				</a>
-				<ul class="navigation__list">
+				<ul class="navigation-list">
 					{% if user %}
-						<li class="list__item">
-							<a href="/newpost" class="list__item__link">New Post</a>
+						<li class="item-list">
+							<a href="/newpost" class="item-list-link">New Post</a>
 						</li>
-						<li class="list__item">
-							<a href="/logout" class="list__item__link">Log out</a>
+						<li class="item-list">
+							<a href="/logout" class="item-list-link">Log out</a>
 						</li>
 					{% else %}
-						<li class="list__item">
-							<a href="/signup" class="list__item__link">Sign up</a>
+						<li class="item-list">
+							<a href="/signup" class="item-list-link">Sign up</a>
 						</li>
-						<li class="list__item">
-							<a href="/login" class="list__item__link">Sign in</a>
+						<li class="item-list">
+							<a href="/login" class="item-list-link">Sign in</a>
 						</li>
 					{% endif %}
 				</ul>

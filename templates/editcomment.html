@@ -6,10 +6,14 @@
         <div class="newpost__form">
             <form method="post" autocomplete="off">
                 <textarea autofocus class="form__textarea" placeholder="Write a response..." type="text" name="content">{{content}}</textarea>
-                <input class="button-outline form__submit" type="submit" value="save">
-                <span class="form__message">{{error}}</span>
+                <br>
+                <a href="/{{post_id}}">
+                    <button class="button form-cancel" type="submit">back</button>
+                </a>
+                <input class="form-submit" type="submit" value="save">
+                <span class="form-message">{{error}}</span>
             </form>
         </div>
     </div>
 
-  
+  {% endblock %}

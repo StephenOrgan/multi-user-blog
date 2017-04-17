@@ -11,7 +11,6 @@ class User(db.Model):
     @classmethod
     def by_id(cls,uid):
         return User.get_by_id(uid, parent = users_key())
-
     
     #load user from db by filtering all users by that username
     @classmethod

@@ -15,7 +15,7 @@ class Signup(BlogHandler):
             u = User.register(self.username, self.password, self.email)
             u.put()
             self.login(u)
-            self.redirect('/welcome')
+            self.redirect('/')
 
     def get(self):
         self.render("signup-form.html")

@@ -4,12 +4,16 @@
       <a href="/{{p.key().id()}}">{{p.subject}}</a>
     </div>
     <div class="post-container-details">
+      
       <div class="post-author">
-        {{username}}
+      Posted by {{username}} on
       </div>
+      
       <div class="post-date">
-        {{p.created_at.strftime("%b %d, %Y")}}
+      {{p.created_at.strftime("%b %d, %Y")}}
       </div>
+      
+  
     </div>
    
 
