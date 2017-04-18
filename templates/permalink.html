@@ -44,11 +44,11 @@
 				<div class="comment-container">
 					<div class="comment-details">
 						<div class="comment-author">
-							{{user.by_id(c.user_id).name}}
-
-							
+							{{post.by_user_id(c.user_id).name}}
 						</div>
-						<div class="comment-date">{{c.created_at.strftime("%b %d, %Y")}}</div>
+						<div class="comment-date">
+							{{c.created_at.strftime("%b %d, %Y")}}
+						</div>
 					</div>
 				</div>
 				<p class="comment-content">
@@ -69,6 +69,7 @@
 					{% endif %}
 				</div>
 			</div>
+		<!--  {{ c.render(c) | safe }}  -->
 		{% endfor %}
 	</div>
 

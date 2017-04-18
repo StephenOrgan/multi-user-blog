@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 from validate import *
+from models.user import User
 
 class Post(db.Model):
     subject = db.StringProperty(required = True)
@@ -16,7 +17,12 @@ class Post(db.Model):
         user = db.get(userkey)
 
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self, current_user_id = current_user_id, username = user.name, user_id = self.user_id)
+        return render_str("post.html", p = self, current_user_id = current_user_id, 
+            username = user.name, user_id = self.user_id)
+
+
+    def by_user_id(cls,uid):
+        return User.get_by_id(uid, parent = users_key())
 
     @classmethod
     def by_id(cls, uid):

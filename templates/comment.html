@@ -1,0 +1,35 @@
+{% extends "permalink.html" %}
+
+{% block content %}
+
+<div class="comment">
+	<div class="comment-container">
+		<div class="comment-details">
+			<div class="comment-author">
+				{{post.by_user_id(c.user_id).name}}
+			</div>
+			<div class="comment-date">
+				{{c.created_at.strftime("%b %d, %Y")}}
+			</div>
+		</div>
+	</div>
+	<p class="comment-content">
+		{{c._render_comment | safe}}
+	</p>
+	<div class="author-options">
+		{% if user and user.key().id() == c.user_id %}
+			<a href="/{{post.key().id()}}/{{c.user_id}}/editcomment/{{ c.key().id() }}">
+				<div class="comment icon">
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+				</div>
+			</a>
+			<a href="/{{post.key().id()}}/{{c.user_id}}/deletecomment/{{ c.key().id() }}">
+				<div class="comment icon">
+					<i class="fa fa-trash-o" aria-hidden="true"></i>
+				</div>
+			</a>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

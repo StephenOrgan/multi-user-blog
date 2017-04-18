@@ -35,8 +35,8 @@ class EditPost(BlogHandler):
 
 			else:
 				error_msg = "You do not have permission to edit this post"
-				self.render("newpost.html", subject=subject,
-							content=content, error=error_msg)
+				self.render("editpost.html", subject=postsubject,
+							content=postcontent, error=error_msg)
 
 		elif not self.user:
 			self.redirect("/login")
