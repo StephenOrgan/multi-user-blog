@@ -25,9 +25,12 @@ To generate the HTML file for the website, type the following command.
 
 This will run a local instance of the multi-user-blog and can be viewed localhost. 
 
+
 You can find a live example here:
+
 https://test-project-162418.appspot.com/
 
 ## Frameworks Used
 Twitter Bootstrap
+
 Font-Awesome
