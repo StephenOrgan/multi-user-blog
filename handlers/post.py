@@ -7,10 +7,10 @@ from models.comment import Comment
 
 class Post(BlogHandler):
 
-    """ If user is signed in, lookup whether the user liked the post. Retrieve
-    all comments for that post. Render permalink.html with the current user,
-    post, comments, and the liked status for the current user. """
     def get(self, post_id):
+        """ If user is signed in, lookup whether the user liked the post. Retrieve
+        all comments for that post. Render permalink.html with the current user,
+        post, comments, and the liked status for the current user. """
         postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(postkey)
         comments = Comment.all().filter('post =', postkey)

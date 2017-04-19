@@ -5,13 +5,15 @@ from validate import *
 
 class Login(BlogHandler):
 
-    """ Render the Login-Form """
+
     def get(self):
+        """ Render the Login-Form """
         self.render('login-form.html')
 
-    """ If valid email and password login the user and redirect
-    to the homepage"""
+    
     def post(self):
+        """ If valid email and password login the user and redirect
+        to the homepage"""
         username = self.request.get('username')
         password = self.request.get('password')
 

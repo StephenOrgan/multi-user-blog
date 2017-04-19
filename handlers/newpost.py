@@ -4,10 +4,10 @@ from validate import *
 
 
 class NewPost(BlogHandler):
-
-    """ If the user is signed in, render newpost.html, otherwise pass users
-    to the basetemplate with an error message """
+    
     def get(self):
+        """ If the user is signed in, render newpost.html, otherwise pass users
+        to the basetemplate with an error message """
         if self.user:
             self.render("newpost.html")
 
@@ -15,11 +15,11 @@ class NewPost(BlogHandler):
             error_msg = "You need to be logged in to author a post"
             self.render("base.html", error=error_msg)
 
-    """ If subject and content is present create the post in the database.
-    Otherwise user sees the newpost form with an appropriate error message. """
     def post(self):
+        """ If subject and content is present create the post in the database.
+        Otherwise user sees the newpost form with an appropriate error message. """
         if not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         subject = self.request.get("subject")
         content = self.request.get("content")

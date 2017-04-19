@@ -102,6 +102,10 @@ li a:hover {
   text-decoration: underline;
 }
 
+.label-black {
+    color: black;
+}
+
 /* Base Template */
 
 .wrapper .container {

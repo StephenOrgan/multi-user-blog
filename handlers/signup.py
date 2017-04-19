@@ -5,10 +5,10 @@ from validate import *
 
 class Signup(BlogHandler):
 
-    """ If username exists pass user to signup form with an error message.
-    If a current username doesn't exist, create the user in the database and
-    redirect to the homepage. """
     def done(self):
+        """ If username exists pass user to signup form with an error message.
+        If a current username doesn't exist, create the user in the database and
+        redirect to the homepage. """
         u = User.by_name(self.username)
 
         if u:
@@ -20,14 +20,14 @@ class Signup(BlogHandler):
             self.login(u)
             self.redirect('/')
 
-    """ Render the Signup form """
     def get(self):
+        """ Render the Signup form """
         self.render("signup-form.html")
 
-    """ Check for errors for a valid username, valid password, valid email
+    def post(self):
+        """ Check for errors for a valid username, valid password, valid email
         address and email verification.  When errors user sees the signup form
         with errors, when no errors done() is executed. """
-    def post(self):
         have_error = False
         self.username = self.request.get('username')
         self.password = self.request.get('password')

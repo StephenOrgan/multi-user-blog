@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<!DOCTYPE html>
 
-<html>
-<head>
-  <link type="text/css" rel="stylesheet" href="/static/main.css" />
-  <link type="text/css" rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" />
+{% extends "base.html" %}
 
-  <title>Sign Up</title>
-</head>
-<body>
+{% block content %}
+
 <h2>SignUp</h2>
 <form method="post">
 	<label> Username:
@@ -37,5 +31,5 @@
 	</div>
 	<input type="submit">
 </form>
-</body>
-</html>
+
+{% endblock %}
