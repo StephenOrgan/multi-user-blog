@@ -16,30 +16,29 @@
 
 <body>
 
-  <div class="wrapper">
-			<div class="container">
-				<nav class="navbar navbar-inverse navbar-static-top">
-					<div class="container">
-        				<div class="navbar-header">
-        					<a href="/" class="navigation-title">
-								<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
-								{% if user %}
-									<h1 class="title-text">Welcome, {{user.name}}!</h1>
-								{% else %}
-									<h1 class="title-text">Udacity Multi-User-Blog</h1>
-								{% endif %}
-							</a>
-            				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                				<span class="sr-only">Toggle navigation</span>
-                				<span class="icon-bar"></span>
-                				<span class="icon-bar"></span>
-               					<span class="icon-bar"></span>
-            					</button>
-        				</div> 
-        				<!-- Collect the nav links, forms, and other content for toggling -->
-        				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav navigation-list">
-
+	<div class="wrapper">
+		<div class="container">
+			<nav class="navbar navbar-inverse navbar-static-top">
+				<div class="container">
+        			<div class="navbar-header">
+        				<a href="/" class="navigation-title">
+							<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
+							{% if user %}
+								<h1 class="title-text">Welcome, {{user.name}}!</h1>
+							{% else %}
+								<h1 class="title-text">Udacity Multi-User-Blog</h1>
+							{% endif %}
+						</a>
+            			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                			<span class="sr-only">Toggle navigation</span>
+                			<span class="icon-bar"></span>
+                			<span class="icon-bar"></span>
+               				<span class="icon-bar"></span>
+            				</button>
+        			</div> 
+        			<!-- Collect the nav links, forms, and other content for toggling -->
+        			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav navigation-list">
 							{% if user %}
 								<li class="item-list">
 									<a href="/logout" class="item-list-link">Sign out</a>
@@ -52,20 +51,22 @@
 									<a href="/login" class="item-list-link">Sign in</a>
 								</li>
 							{% endif %}
-							</ul>
-						</div>
-				    </div>
-				</nav>
+						</ul>
+					</div>
+				</div>
+			</nav>
 			{% if user %}
-				<a href="/newpost" class="item-list-link">
-					<button type="button" id="newpost" class="button newpost">New Post</button>
+				<a href="/newpost" class="item-list-link btn btn-primary btn-lg active">
+					New Post
 				</a>
 			{% endif %}
 
-	<div id="content" class="post-content-block">
-		{% block content %}
-		{{error}}
-		{% endblock %}
+			<div id="content" class="post-content-block">
+				{% block content %}
+					{{error}}
+				{% endblock %}
+			</div>
+		</div>
 	</div>
 
 </body>
