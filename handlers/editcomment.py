@@ -20,7 +20,7 @@ class EditComment(BlogHandler):
                         post_id=post_id)
 
         elif not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         else:
             self.write("You do not have permission to edit this comment")
@@ -45,7 +45,7 @@ class EditComment(BlogHandler):
             	return self.redirect('/' + post_id)
 
         elif not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         else:
             self.write("You do not have permission to edit this comment")

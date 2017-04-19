@@ -22,10 +22,10 @@ class DeleteComment(BlogHandler):
             comment.delete()
             post.put()
 
-            self.redirect('/' + str(postkey.id()))
+            return self.redirect('/' + str(postkey.id()))
 
         elif not self.user:
-            self.redirect("/login")
+            return self.redirect("/login")
 
         else:
             error_msg = "You do not have permission to delete this comment"

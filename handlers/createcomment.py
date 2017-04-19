@@ -18,7 +18,7 @@ class CreateComment(BlogHandler):
     the comment in the db and redirect to the post page. """
     def post(self, post_id, user_id):
         if not self.user:
-            self.redirect('/login')
+            return self.redirect('/login')
 
         content = self.request.get('content')
         user_name = self.user.name

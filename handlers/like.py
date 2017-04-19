@@ -23,7 +23,7 @@ class LikeHandler(BlogHandler):
                 error = "Sorry, you cannot like your own post."
                 self.render('base.html', error=error)
             elif not self.user:
-                self.redirect('/login')
+                return self.redirect('/login')
             else:
                 user_id = self.user.key().id()
                 post_id = post.key().id()
@@ -32,7 +32,7 @@ class LikeHandler(BlogHandler):
                     'user_id =', user_id).filter('post_id =', post_id).get()
 
                 if liked:
-                    self.redirect('/' + str(post.key().id()))
+                    return self.redirect('/' + str(post.key().id()))
 
                 else:
                     like = LikeModel(parent=postkey,
@@ -44,7 +44,7 @@ class LikeHandler(BlogHandler):
                     like.put()
                     post.put()
 
-                    self.redirect('/' + str(post.key().id()))
+                    return self.redirect('/' + str(post.key().id()))
 
 
 class UnlikeHandler(BlogHandler):
@@ -64,7 +64,7 @@ class UnlikeHandler(BlogHandler):
             if self.user and self.user.key().id() == post.user_id:
                 self.write("You cannot unlike your own post")
             elif not self.user:
-                self.redirect('/login')
+                return self.redirect('/login')
             else:
                 user_id = self.user.key().id()
                 post_id = post.key().id()
@@ -77,6 +77,6 @@ class UnlikeHandler(BlogHandler):
                     post.like_count -= 1
                     post.put()
 
-                    self.redirect('/' + str(post.key().id()))
+                    return self.redirect('/' + str(post.key().id()))
                 else:
                     self.redirect('/' + str(post.key().id()))

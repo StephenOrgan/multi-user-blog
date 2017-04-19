@@ -21,7 +21,7 @@ class EditPost(BlogHandler):
                             content=post.content, post_id=post_id)
 
             elif not self.user:
-                self.redirect("/login")
+                return self.redirect("/login")
 
             else:
                 self.write("You do not have permission to edit this post")
@@ -54,7 +54,7 @@ class EditPost(BlogHandler):
                                 content=postcontent, error=error_msg)
 
             elif not self.user:
-                self.redirect("/login")
+                return self.redirect("/login")
 
             else:
                 self.write("You do not have permission to edit this post")
