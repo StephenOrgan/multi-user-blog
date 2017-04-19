@@ -27,9 +27,10 @@ class CreateComment(BlogHandler):
         c = Comment(parent=postkey, user=self.user.key(),
                     content=content, post=postkey)
 
-        post.comment_count += 1
-
-        c.put()
-        post.put()
+        
+        if post:
+            post.comment_count += 1
+            c.put()
+            post.put()
 
         self.redirect('/' + post_id)

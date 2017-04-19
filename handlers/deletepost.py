@@ -1,7 +1,18 @@
 from google.appengine.ext import db
 from handlers.bloghandler import BlogHandler
 from validate import *
+from models.like import Like
+from models.comment import Comment
 
+
+def delete_dependents(comments, likes):
+        if comments:
+            for c in comments:
+                c.delete()
+        if likes:
+            for l in likes:
+                l.delete()
+                
 
 class DeletePost(BlogHandler):
 
@@ -14,8 +25,13 @@ class DeletePost(BlogHandler):
         if self.user and self.user.key().id() == int(post_user_id):
             postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(postkey)
-            post.delete()
-            return self.redirect('/')
+            comments = Comment.all().filter('post =', postkey)
+            likes = Like.all().filter('post_id =', post.key().id())
+
+            if post:
+                delete_dependents(comments=comments, likes=likes)
+                post.delete()
+                return self.redirect('/')
 
         elif not self.user:
             return self.redirect("/login")
@@ -29,3 +45,5 @@ class DeletePost(BlogHandler):
 
             self.render("permalink.html", post=post, comments=comments,
                         error_msg=error_msg)
+
+

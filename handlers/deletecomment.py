@@ -17,12 +17,12 @@ class DeleteComment(BlogHandler):
                                           parent=postkey)
             comment = db.get(commentkey)
 
-            post.comment_count -= 1
+            if comment:
+                post.comment_count -= 1
+                comment.delete()
+                post.put()
 
-            comment.delete()
-            post.put()
-
-            return self.redirect('/' + str(postkey.id()))
+                return self.redirect('/' + str(postkey.id()))
 
         elif not self.user:
             return self.redirect("/login")
