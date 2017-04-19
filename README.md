@@ -11,16 +11,23 @@ Source Code: It is available on github. Clone the project using `git clone` comm
  
  ``` 
    # Clone the repository directly 
-   $ git clone https://github.com/StephenOrgan/movie-trailer-miniproject 
+   $ git clone https://github.com/StephenOrgan/multi-user-blog 
    # Clone a forked repository
-   $ git clone https://github.com/your-github-username/movie-trailer-miniproject 
+   $ git clone https://github.com/your-github-username/multi-user-blog
 
    ```
 
-## Executing entertainment_center.py via Python
+## Executing multi-user-blog via Python
 
 To generate the HTML file for the website, type the following command.
 
 ` $ dev_appserver.py `
 
 This will run a local instance of the multi-user-blog and can be viewed localhost. 
+
+You can find a live example here:
+https://test-project-162418.appspot.com/
+
+## Frameworks Used
+Twitter Bootstrap
+Font-Awesome
