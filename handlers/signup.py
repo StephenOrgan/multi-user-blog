@@ -5,21 +5,28 @@ from validate import *
 
 class Signup(BlogHandler):
 
+    """ If username exists pass user to signup form with an error message.
+    If a current username doesn't exist, create the user in the database and
+    redirect to the homepage. """
     def done(self):
         u = User.by_name(self.username)
-        
+
         if u:
             msg = "That user already exists"
-            self.render('signup-form.html', error_username = msg)
+            self.render('signup-form.html', error_username=msg)
         else:
             u = User.register(self.username, self.password, self.email)
             u.put()
             self.login(u)
             self.redirect('/')
 
+    """ Render the Signup form """
     def get(self):
         self.render("signup-form.html")
 
+    """ Check for errors for a valid username, valid password, valid email
+        address and email verification.  When errors user sees the signup form
+        with errors, when no errors done() is executed. """
     def post(self):
         have_error = False
         self.username = self.request.get('username')
@@ -37,7 +44,7 @@ class Signup(BlogHandler):
         if not valid_password(self.password):
             params['error_password'] = "That wasn't a valid password."
             have_error = True
-        
+
         elif self.password != self.verify:
             params['error_verify'] = "Your passwords didn't match."
             have_error = True
@@ -48,6 +55,6 @@ class Signup(BlogHandler):
 
         if have_error:
             self.render('signup-form.html', **params)
-        
+
         else:
-            self.done() #in the signup class run the done method
+            self.done()

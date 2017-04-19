@@ -3,8 +3,17 @@ from handlers.bloghandler import BlogHandler
 from validate import *
 from models.like import Like as LikeModel
 
+
 class LikeHandler(BlogHandler):
 
+    """ If the user is signed in and has authored the post render the
+    basetemplate with an error message as they can't like their own posts.
+
+    Pass the user to the sign in page if the user isn't signed in.
+
+    Lookup whether the user has liked the post.  If liked, redirect the user
+    to the post page.  Otherwise a new like can be recorded in the db and
+    increment the like_count in the post model. """
     def get(self, post_id):
         postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(postkey)
@@ -18,15 +27,16 @@ class LikeHandler(BlogHandler):
             user_id = self.user.key().id()
             post_id = post.key().id()
 
-            liked = LikeModel.all().filter('user_id =', user_id).filter('post_id =', post_id).get()
+            liked = LikeModel.all().filter(
+                'user_id =', user_id).filter('post_id =', post_id).get()
 
             if liked:
                 self.redirect('/' + str(post.key().id()))
 
             else:
-                like = LikeModel(parent=postkey, 
-                            user_id=self.user.key().id(),
-                            post_id=post.key().id())
+                like = LikeModel(parent=postkey,
+                                 user_id=self.user.key().id(),
+                                 post_id=post.key().id())
 
                 post.like_count += 1
 
@@ -38,6 +48,13 @@ class LikeHandler(BlogHandler):
 
 class UnlikeHandler(BlogHandler):
 
+    """ If the user is signed in and has authored the post render the
+    basetemplate with an error message as they can't unlike their own posts.
+
+    Pass the user to the sign in page if the user isn't signed in.
+
+    Lookup whether the user has liked the post.  If liked, delete the like
+    from the db and deincrement the like_count in the post model """
     def get(self, post_id):
         postkey = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(postkey)
@@ -50,7 +67,8 @@ class UnlikeHandler(BlogHandler):
             user_id = self.user.key().id()
             post_id = post.key().id()
 
-            l = LikeModel.all().filter('user_id =', user_id).filter('post_id =', post_id).get()
+            l = LikeModel.all().filter(
+                'user_id =', user_id).filter('post_id =', post_id).get()
 
             if l:
                 l.delete()

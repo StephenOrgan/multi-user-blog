@@ -15,19 +15,21 @@ class BlogHandler(webapp2.RequestHandler):
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
 
+    # set the user cookie
     def login(self, user):
         self.set_secure_cookie('user_id', str(user.key().id()))
 
+    # clear the user cookie
     def logout(self):
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
-        
+
     # this makes hmac hash of name and sets it in the header as name=hash
     def set_secure_cookie(self, name, val):
         cookie_val = make_secure_val(val)
         self.response.headers.add_header(
             'Set-Cookie', '%s=%s; Path=/' % (name, cookie_val))
-        
-    #if cookies and that cookie passes check_secure_val then return cookie_val
+
+    # if cookies and that cookie passes check_secure_val then return cookie_val
     def read_secure_cookie(self, name):
         cookie_val = self.request.cookies.get(name)
         return cookie_val and check_secure_val(cookie_val)

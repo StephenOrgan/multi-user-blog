@@ -3,6 +3,7 @@
 <head>
   <link type="text/css" rel="stylesheet" href="/static/main.css" />
   <link type="text/css" rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="/static/style.css">
 
   <title>Udacity MultiUser Blog</title>
 </head>
@@ -20,31 +21,42 @@
 						<h1 class="title-text">Udacity Multi-Blog</h1>
 					{% endif %}
 				</a>
-				<ul class="navigation-list">
-					{% if user %}
-						<li class="item-list">
-							<a href="/newpost" class="item-list-link">New Post</a>
-						</li>
-						<li class="item-list">
-							<a href="/logout" class="item-list-link">Log out</a>
-						</li>
-					{% else %}
-						<li class="item-list">
-							<a href="/signup" class="item-list-link">Sign up</a>
-						</li>
-						<li class="item-list">
-							<a href="/login" class="item-list-link">Sign in</a>
-						</li>
-					{% endif %}
-				</ul>
-			</div>
+				
 
-	<div id="content">
+				<button class="hamburger">&#9776;</button>
+  				<button class="cross">&#735;</button>
+				<div class="menu">
+					<ul class="navigation-list">
+						{% if user %}
+							<li class="item-list">
+								<a href="/logout" class="item-list-link">Sign out</a>
+							</li>
+						{% else %}
+							<li class="item-list">
+								<a href="/signup" class="item-list-link">Sign up</a>
+							</li>
+							<li class="item-list">
+								<a href="/login" class="item-list-link">Sign in</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			{% if user %}
+				<a href="/newpost" class="item-list-link">
+					<button type="button" id="newpost" class="button newpost">New Post</button>
+				</a>
+			{% endif %}
+
+	<div id="content" class="post-content-block">
 		{% block content %}
 		{{error}}
 		{% endblock %}
 	</div>
 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="/static/index.js"></script>
 </body>
 
 </html>

@@ -4,21 +4,18 @@
       <a href="/{{p.key().id()}}">{{p.subject}}</a>
     </div>
     <div class="post-container-details">
-      
       <div class="post-author">
       Posted by {{username}} on
       </div>
-      
       <div class="post-date">
-      {{p.created_at.strftime("%b %d, %Y")}}
+        {{p.created_at.strftime("%b %d, %Y")}}
       </div>
-      
-  
+      <div class="count-container">
+          <i class="fa fa-heart post-options like-count" aria-hidden="true"></i> {{like_count}} likes
+          <i class="fa fa-commenting post-options comment-count" aria-hidden="true"></i> {{comment_count}} comments
+      </div>
     </div>
-   
-
-  </div>
-
+   </div>
   <div class="post-content">
     {{p._render_text | safe}}
   </div>

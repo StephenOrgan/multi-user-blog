@@ -5,37 +5,70 @@
 	{{post.render(None) | safe}}
 
 	<div class="post-options-container">
-	{% if user and user.key().id() == post.user_id %}
-		<a href="/{{post.key().id()}}/deletepost/{{post.user_id}}">
-			<div><i class="fa fa-trash-o post-options" aria-hidden="true"></i></div>
-		</a>
-		<a href="/{{post.key().id()}}/editpost">
-			<div><i class="fa fa-pencil post-options" aria-hidden="true"></i></div>
-		</a>
-		
-
-	{% endif %}
-
-	{% if user %}
-		<a href="/{{post.key().id()}}/addcomment/{{user.key().id()}}">
-			<div><i class="fa fa-commenting-o post-options" aria-hidden="true"></i></div>
-		</a>
-	{% endif %}
-
-	{% if user and liked %}
-			<a href="/{{post.key().id()}}/unlike"> 
-				<i class="fa fa-heart post-options" aria-hidden="true"></i>
+		{% if user and user.key().id() == post.user_id %}
+			<a href="/{{post.key().id()}}/deletepost/{{post.user_id}}">
+				<div><i class="fa fa-trash-o post-options" aria-hidden="true"></i></div>
 			</a>
-
-		{% else %}
-			<a href="/{{post.key().id()}}/like">
-				<i class="fa fa-heart-o post-options" aria-hidden="true"></i>
+			<a href="/{{post.key().id()}}/editpost">
+				<div><i class="fa fa-pencil post-options" aria-hidden="true"></i></div>
 			</a>
+			
 
-	{% endif %}
+		{% endif %}
+
+		{% if user %}
+			<a href="/{{post.key().id()}}/addcomment/{{user.key().id()}}">
+				<div><i class="fa fa-commenting-o post-options" aria-hidden="true"></i></div>
+			</a>
+		{% endif %}
+
+		{% if user and liked %}
+				<a href="/{{post.key().id()}}/unlike"> 
+					<i class="fa fa-heart post-options" aria-hidden="true"></i>
+				</a>
+
+			{% else %}
+				<a href="/{{post.key().id()}}/like">
+					<i class="fa fa-heart-o post-options" aria-hidden="true"></i>
+				</a>
+
+		{% endif %}
+	</div>
+	<div class = "comments">
+		{% for c in comments %}
+			<div class="comment">
+				<div class="comment-container">
+					<div class="comment-details">
+						<div class="comment-author">
+							{{c.user.name}}
+						</div>
+						<div class="comment-date">
+							{{c.created_at.strftime("%b %d, %Y")}}
+						</div>
+					</div>
+				</div>
+					<p class="comment-content">
+						{{ c.format_content() | safe }}
+					</p>
+					<div class="author-options">
+						{% if user and user.key() == c.user.key() %}
+							<a href="/{{c.post.key().id()}}/{{c.user.key().id()}}/editcomment/{{ c.key().id() }}">
+								<div class="comment icon">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+								</div>
+							</a>
+							<a href="/{{c.post.key().id()}}/{{c.user.key().id()}}/deletecomment/{{ c.key().id() }}">
+								<div class="comment icon">
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+								</div>
+							</a>
+						{% endif %}
+					</div>
+			</div>
+		{% endfor %}
 	</div>
 
-	<div class="comments">
+	<!--<div class="comments">
 		{% if comments %}
 			<h1>Comments:</h1>
 			{% endif %}
@@ -68,9 +101,8 @@
 						</a>
 					{% endif %}
 				</div>
-			</div>
-		<!--  {{ c.render(c) | safe }}  -->
-		{% endfor %}
+			</div> 
+		{% endfor %} -->
 	</div>
 
 	{{error}}
